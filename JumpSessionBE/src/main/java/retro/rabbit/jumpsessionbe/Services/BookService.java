@@ -22,6 +22,7 @@ public class BookService {
     }
 
     public Book createBook(Book book){
+        System.out.println(book);
         return bookRepository.save(book);
     }
 
