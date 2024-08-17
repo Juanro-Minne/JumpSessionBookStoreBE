@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import retro.rabbit.jumpsessionbe.Models.Book;
+import retro.rabbit.jumpsessionbe.Models.UserBooks;
 import retro.rabbit.jumpsessionbe.Services.BookService;
 
 
@@ -15,6 +16,7 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    private UserBooks userbooks;
 
     @GetMapping("/get-books")
     public List<Book> getAllAdmins() {
@@ -28,14 +30,16 @@ public class BookController {
                 .orElseGet(()->ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/delete-book/{id}")
+    public void deleteBook(@PathVariable Long id) {
+
+         bookService.deleteBook(id);
+    }
+
     @PostMapping("/create-book")
     public Book createBook(@RequestBody Book book){
         return bookService.createBook(book);
     }
 
-    @DeleteMapping("/delete-book/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        bookService.deleteBook(id);
-        return ResponseEntity.noContent().build();
-    }
+
 }
