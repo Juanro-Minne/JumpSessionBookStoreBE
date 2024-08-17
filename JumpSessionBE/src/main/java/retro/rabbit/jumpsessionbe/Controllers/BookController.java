@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import retro.rabbit.jumpsessionbe.Models.Book;
 import retro.rabbit.jumpsessionbe.Services.BookService;
-
+import retro.rabbit.jumpsessionbe.Services.UserService;
 
 import java.util.List;
 
@@ -15,6 +15,10 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping("/get-books")
     public List<Book> getAllAdmins() {
@@ -32,6 +36,8 @@ public class BookController {
     public Book createBook(@RequestBody Book book){
         return bookService.createBook(book);
     }
+
+    
 
     @DeleteMapping("/delete-book/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
